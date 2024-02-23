@@ -1,0 +1,12 @@
+.nav-slider {
+    --left-tabs: 0;
+    --width-tabs: 0px;
+    content: "";
+    position: absolute;
+    left: var(--left-tabs);
+    width: var(--width-tabs);
+    bottom: 0px;
+    height: 2px;
+    background-color: #F5B001;
+    transition: all 0.3s ease-in-out ;
+}

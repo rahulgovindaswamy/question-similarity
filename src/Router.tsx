@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import UploadQuestions from "./screens/UploadQuestions/UploadQuestions";
+import Home from "./screens/Home/Home";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<UploadQuestions />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
