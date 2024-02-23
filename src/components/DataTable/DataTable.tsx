@@ -84,156 +84,158 @@ const DataTable = () => {
     }
   };
   return (
-    <div className="relative overflow-x-auto">
-      <div className="relative text-gray-500 p-2 flex items-center justify-between border">
-        <div> Processed Results</div>
-        <div className="flex items-center space-x-4 text-[18px]">
-          <i className="fa-solid fa-download cursor-pointer"></i>
-          <i
-            onClick={() => setSearchBlock(true)}
-            className="fa-solid fa-magnifying-glass cursor-pointer"
-          ></i>
-          {maxTable ? (
+    <div className={`${maxTable && "absolute w-full top-0 left-0 right-0"} `}>
+      <div className="relative overflow-x-auto">
+        <div className="relative text-gray-500 p-2 flex items-center justify-between border">
+          <div> Processed Results</div>
+          <div className="flex items-center space-x-4 text-[18px]">
+            <i className="fa-solid fa-download cursor-pointer"></i>
             <i
-              className="fa-solid fa-compress cursor-pointer"
-              onClick={() => setMaxTable(!maxTable)}
+              onClick={() => setSearchBlock(true)}
+              className="fa-solid fa-magnifying-glass cursor-pointer"
             ></i>
-          ) : (
-            <i
-              className="fa-solid fa-expand cursor-pointer"
-              onClick={() => setMaxTable(!maxTable)}
-            ></i>
+            {maxTable ? (
+              <i
+                className="fa-solid fa-compress cursor-pointer"
+                onClick={() => setMaxTable(!maxTable)}
+              ></i>
+            ) : (
+              <i
+                className="fa-solid fa-expand cursor-pointer"
+                onClick={() => setMaxTable(!maxTable)}
+              ></i>
+            )}
+          </div>
+          {searchBlock && (
+            <>
+              <input
+                placeholder="Search here"
+                className={`${
+                  searchBlock ? "block" : "hidden"
+                } transition-all duration-500 ease-in-out absolute bg-white right-8 min-w-[300px] h-10 pl-2 rounded-sm border text-sm outline-none focus:border-blue-500`}
+              />
+              <i className="absolute right-12   fa-solid fa-xmark cursor-pointer"></i>
+
+              <div
+                onClick={() => setSearchBlock(false)}
+                className="absolute bg-blue-500 text-white right-0 h-10 w-10 flex items-center justify-center "
+              >
+                <i className=" fa-solid fa-magnifying-glass cursor-pointer te"></i>
+              </div>
+            </>
           )}
         </div>
-        {searchBlock && (
-          <>
-            <input
-              placeholder="Search here"
-              className={`${
-                searchBlock ? "block" : "hidden"
-              } transition-all duration-500 ease-in-out absolute bg-white right-8 min-w-[300px] h-10 pl-2 rounded-sm border text-sm outline-none focus:border-blue-500`}
-            />
-            <i className="absolute right-12   fa-solid fa-xmark cursor-pointer"></i>
-
-            <div
-              onClick={() => setSearchBlock(false)}
-              className="absolute bg-blue-500 text-white right-0 h-10 w-10 flex items-center justify-center "
-            >
-              <i className=" fa-solid fa-magnifying-glass cursor-pointer te"></i>
-            </div>
-          </>
-        )}
-      </div>
-      <table className="w-full text-left bg-white rounded-md">
-        <thead className="text-[16px] text-[#0B6481] bg-slate-200 tracking-tight font-bold opacity-70	">
-          <tr>
-            {columns.map((column: any, index: number) => {
+        <table className="w-full text-left bg-white rounded-md">
+          <thead className="text-[16px] text-[#0B6481] bg-slate-200 tracking-tight font-bold opacity-70	">
+            <tr>
+              {columns.map((column: any, index: number) => {
+                return (
+                  <th
+                    key={index}
+                    scope="col"
+                    className={`px-4 py-2 ${column.align}`}
+                    style={{ width: `${column.width}px` }}
+                  >
+                    {column.label}
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody className="text-[15px] opacity-90 text-[#374043]">
+            {rowData.map((row: any, i: number) => {
               return (
-                <th
-                  key={index}
-                  scope="col"
-                  className={`px-4 py-2 ${column.align}`}
-                  style={{ width: `${column.width}px` }}
-                >
-                  {column.label}
-                </th>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody className="text-[15px] opacity-90 text-[#374043]">
-          {rowData.map((row: any, i: number) => {
-            return (
-              <>
-                <tr key={i}>
-                  {columns?.map((column: any, index: number) => {
-                    return (
+                <>
+                  <tr key={i}>
+                    {columns?.map((column: any, index: number) => {
+                      return (
+                        <td
+                          style={{ width: `${column.width}px` }}
+                          key={column.id}
+                          className={`px-4 py-2 ${column.align}`}
+                        >
+                          {showData(row[column.id], column, i)}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                  {showDetail && indexing === i && (
+                    <tr>
                       <td
-                        style={{ width: `${column.width}px` }}
-                        key={column.id}
-                        className={`px-4 py-2 ${column.align}`}
+                        className="bg-white relative border"
+                        colSpan={columns.length}
                       >
-                        {showData(row[column.id], column, i)}
-                      </td>
-                    );
-                  })}
-                </tr>
-                {showDetail && indexing === i && (
-                  <tr>
-                    <td
-                      className="bg-white relative border"
-                      colSpan={columns.length}
-                    >
-                      <div className="flex flex-col items-center justify-center bg-slate-100">
-                        <div className=" bg-white p-2 text-md w-[80%] shadow-lg my-2">
-                          <div className="text-sky-800 text-2xl text-center w-full font-bold  border-[sky] pb-1 ">
-                            Related Questions
-                          </div>
-                          <div className="bg-white p-2 text-md border-b mx-4">
-                            <div className="text-sky-800 font-semibold">
-                              1. What is capital of india?
+                        <div className="flex flex-col items-center justify-center bg-slate-100">
+                          <div className=" bg-white p-2 text-md w-[80%] shadow-lg my-2">
+                            <div className="text-sky-800 text-2xl text-center w-full font-bold  border-[sky] pb-1 ">
+                              Related Questions
                             </div>
-                            <div className="list-disc	2xl:flex items-center justify-between text-[#75736d] ">
-                              <li>Karnataka</li>
-                              <li>Tamilnadu</li>
-                              <li>Andra Pradesh</li>
-                              <li>Kerala</li>
-                            </div>{" "}
-                          </div>
-                          <div className=" bg-white p-2 text-md border-b mx-4">
-                            <div className="text-sky-800 font-semibold">
-                              2. Check line in a chain surveying ?
+                            <div className="bg-white p-2 text-md border-b mx-4">
+                              <div className="text-sky-800 font-semibold">
+                                1. What is capital of india?
+                              </div>
+                              <div className="list-disc	2xl:flex items-center justify-between text-[#75736d] ">
+                                <li>Karnataka</li>
+                                <li>Tamilnadu</li>
+                                <li>Andra Pradesh</li>
+                                <li>Kerala</li>
+                              </div>{" "}
                             </div>
-                            <div className="list-disc	2xl:flex items-center justify-between text-[#75736d] ">
-                              <li>Checks the accuracy of the framework </li>
-                              <li>
-                                Enables the surveyor to locate the interior
-                                details which are far away from the main chain
-                                lines
-                              </li>
-                              <li>
-                                Fixes up the directions of all other lines{" "}
-                              </li>
-                              <li>All of the above </li>
+                            <div className=" bg-white p-2 text-md border-b mx-4">
+                              <div className="text-sky-800 font-semibold">
+                                2. Check line in a chain surveying ?
+                              </div>
+                              <div className="list-disc	2xl:flex items-center justify-between text-[#75736d] ">
+                                <li>Checks the accuracy of the framework </li>
+                                <li>
+                                  Enables the surveyor to locate the interior
+                                  details which are far away from the main chain
+                                  lines
+                                </li>
+                                <li>
+                                  Fixes up the directions of all other lines{" "}
+                                </li>
+                                <li>All of the above </li>
+                              </div>
                             </div>
-                          </div>
-                          <div className="bg-white p-2 text-md border-b mx-4 ">
-                            <div className="text-sky-800 font-semibold">
-                              3. What is your name?
-                            </div>
-                            <div className="list-disc	2xl:flex items-center justify-between text-[#75736d]">
-                              <li>Sunil charan </li>
-                              <li>Vinay</li>
-                              <li>Rahul</li>
-                              <li>Deepak</li>
+                            <div className="bg-white p-2 text-md border-b mx-4 ">
+                              <div className="text-sky-800 font-semibold">
+                                3. What is your name?
+                              </div>
+                              <div className="list-disc	2xl:flex items-center justify-between text-[#75736d]">
+                                <li>Sunil charan </li>
+                                <li>Vinay</li>
+                                <li>Rahul</li>
+                                <li>Deepak</li>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </>
-            );
-          })}
-        </tbody>
-      </table>
-      <div className="m-4 flex items-center sm:justify-center font-semibold">
-        <div className="w-full lg:w-1/2 flex items-center justify-between text-sm">
-          <div
-            onClick={previousPage}
-            className=" opacity-55 w-[60px] sm:w-[120px] border text-[#1081A6] border-[#1081A6] py-1 text-center rounded-sm cursor-pointer "
-          >
-            Previous
-          </div>
-          <div className="sm:text-sm text-[10px] text-[#374043] opacity-75">
-            Page 1 of 3 | Total Count: 145
-          </div>
-          <div
-            onClick={nextPage}
-            className="w-[60px] sm:w-[120px] border text-[#1081A6] border-[#1081A6] py-1 text-center rounded-sm cursor-pointer opacity-100"
-          >
-            Next
+                      </td>
+                    </tr>
+                  )}
+                </>
+              );
+            })}
+          </tbody>
+        </table>
+        <div className="m-4 flex items-center sm:justify-center font-semibold">
+          <div className="w-full lg:w-1/2 flex items-center justify-between text-sm">
+            <div
+              onClick={previousPage}
+              className=" opacity-55 w-[60px] sm:w-[120px] border text-[#1081A6] border-[#1081A6] py-1 text-center rounded-sm cursor-pointer "
+            >
+              Previous
+            </div>
+            <div className="sm:text-sm text-[10px] text-[#374043] opacity-75">
+              Page 1 of 3 | Total Count: 145
+            </div>
+            <div
+              onClick={nextPage}
+              className="w-[60px] sm:w-[120px] border text-[#1081A6] border-[#1081A6] py-1 text-center rounded-sm cursor-pointer opacity-100"
+            >
+              Next
+            </div>
           </div>
         </div>
       </div>
