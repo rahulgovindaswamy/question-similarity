@@ -18,7 +18,7 @@ const SearchSimilarQuestions = () => {
           <div className="text-[#374043] font-semibold opacity-70">
             Enter the Question Stem
           </div>
-          <div className="sm:flex items-center sm:space-x-4 mt-3">
+          <div className="md:flex items-center md:space-x-4 mt-3">
             <div>
               <SearchInput
                 type="text"
@@ -35,9 +35,7 @@ const SearchSimilarQuestions = () => {
                 <div>
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </div>
-                <div className="sm:block hidden text-md font-semibold">
-                  Check Similarity
-                </div>
+                <div className="text-md font-semibold">Check Similarity</div>
               </div>
             </Button>
           </div>

@@ -23,7 +23,7 @@ export default function CustomMarks() {
   };
 
   return (
-    <Box sx={{}}>
+    <Box sx={{ paddingLeft: "8px" }}>
       <Slider
         marks={marks}
         step={1}
