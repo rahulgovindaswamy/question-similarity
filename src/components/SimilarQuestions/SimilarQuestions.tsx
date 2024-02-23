@@ -8,8 +8,8 @@ const SimilarQuestions = () => {
   return (
     <div className="w-full">
       <div className="mt-5 text-[#374043]">
-        <div className="text-xl font-semibold">View Similar Questions</div>
-        <div className="text-sm leading-relaxed">
+        <div className="text-xl font-semibold mb-1">View Similar Questions</div>
+        <div className="text-sm leading-relaxed opacity-80">
           Filter the similar questions by Stem, Type, and Options matching
           scores
         </div>
@@ -33,7 +33,7 @@ const SimilarQuestions = () => {
           <div className="px-2 mt-3">
             <div className="md:flex items-center justify-between text-[#374043] font-semibold">
               <div className="sm:w-2/3 w-full px-4">
-                <div>Above Score</div>
+                <div className="mb-2">Above Score</div>
                 <div className="md:w-[500px] w-full">
                   <CustomMarks />
                 </div>
@@ -45,13 +45,13 @@ const SimilarQuestions = () => {
                 </div>
               </div>
             </div>
-            <div className="text-sm px-4 py-4 text-[#374043] font-semibold">
+            <div className="text-sm px-4 py-4 text-[#374043] font-semibold opacity-80">
               Filter by Stem the calculation score is 10
             </div>
           </div>
         )}
       </div>
-      <div className="bg-white rounded-sm mt-5 p-5 text-[#374043] font-semibold">
+      <div className="bg-white rounded-sm mt-5 p-5 text-[#374043] font-semibold opacity-70">
         Please upload the question file in the first tab to check the Duplicate
         Questions.
       </div>

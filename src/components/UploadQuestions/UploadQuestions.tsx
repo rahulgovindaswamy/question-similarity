@@ -13,10 +13,10 @@ const UploadQuestions = () => {
   return (
     <div className="w-full">
       <div className="mt-5 text-[#374043]">
-        <div className="text-xl font-semibold">
+        <div className="text-xl font-semibold mb-1">
           Upload and View Question Bank
         </div>
-        <div className="text-sm leading-relaxed">
+        <div className="text-sm leading-relaxed opacity-80">
           You can upload your .xls/xlsx file here to view your question bank.
         </div>
       </div>
@@ -52,11 +52,11 @@ const UploadQuestions = () => {
                         fill="#5f6669"
                       />
                     </svg>
-                    <div>
-                      <div className="text-lg font-semibold mb-1">
+                    <div className="text-[#374043]">
+                      <div className="text-md font-semibold mb-1 ">
                         Drag and drop audio file here
                       </div>
-                      <div className="text-sm">
+                      <div className="text-xs opacity-80">
                         Limit 200MB per file .XLS/XLSX
                       </div>
                     </div>

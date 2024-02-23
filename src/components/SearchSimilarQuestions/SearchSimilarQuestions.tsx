@@ -8,14 +8,14 @@ const SearchSimilarQuestions = () => {
   return (
     <div className="w-full">
       <div className="mt-5 text-[#374043]">
-        <div className="text-xl font-semibold">Find Similar Questions</div>
-        <div className="text-sm leading-relaxed">
+        <div className="text-xl font-semibold mb-1">Find Similar Questions</div>
+        <div className="text-sm leading-relaxed opacity-80">
           Input the Question to find similar questions.
         </div>
       </div>
       <div className="w-full bg-white rounded-sm mt-5">
         <div className="p-5">
-          <div className="text-[#374043] font-semibold">
+          <div className="text-[#374043] font-semibold opacity-70">
             Enter the Question Stem
           </div>
           <div className="sm:flex items-center sm:space-x-4 mt-3">
@@ -43,7 +43,7 @@ const SearchSimilarQuestions = () => {
           </div>
         </div>
       </div>
-      <div className="w-full bg-white rounded-sm mt-5 p-5 text-[#374043] font-semibold">
+      <div className="w-full bg-white rounded-sm mt-5 p-5 text-[#374043] font-semibold opacity-70">
         Please enter a search query before checking similarity.
       </div>
     </div>
