@@ -52,8 +52,12 @@ const DataTable = (props: any) => {
     }
   };
   return (
-    <div className={`${maxTable && "absolute w-full top-16 left-0 right-0"} `}>
-      <div className="relative overflow-x-auto bg-[#F2F4F6]">
+    <div
+      className={`relative overflow-x-auto ${
+        maxTable && "absolute w-full top-16 left-0 right-0"
+      } `}
+    >
+      <div className="bg-[#F2F4F6]">
         <div className="relative text-[#374043] opacity-90 p-2 flex items-center justify-between border border-[#C3C8CB] bg-white border-b-0">
           <div> Processed Results</div>
           <div className="flex items-center space-x-4 text-[18px]">
@@ -93,7 +97,7 @@ const DataTable = (props: any) => {
             </>
           )}
         </div>
-        <table className="w-full text-left bg-white rounded-md">
+        <table className="w-full text-left bg-white rounded-md relative overflow-x-auto">
           <thead className="text-[16px] text-[#0B6481] bg-slate-200 tracking-tight font-bold opacity-70">
             <tr>
               {columns.map((column: any, index: number) => {

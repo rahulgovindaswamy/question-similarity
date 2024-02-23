@@ -27,7 +27,7 @@ export default function CustomMarks() {
       <Slider
         marks={marks}
         step={1}
-        value={5}
+        value={val}
         valueLabelDisplay="auto"
         min={MIN}
         max={MAX}
