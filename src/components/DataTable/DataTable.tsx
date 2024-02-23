@@ -74,7 +74,7 @@ const DataTable = () => {
       return (
         <div
           onClick={() => onClickShowDetails(index)}
-          className="border px-2 py-1 text-sm shadow-md text-sky-800 cursor-pointer"
+          className="px-2 py-1 text-sm text-sky-800 cursor-pointer"
         >
           <i className="fa-solid fa-eye text-[16px]"></i>
         </div>
@@ -84,9 +84,9 @@ const DataTable = () => {
     }
   };
   return (
-    <div className={`${maxTable && "absolute w-full top-0 left-0 right-0"} `}>
+    <div className={`${maxTable && "absolute w-full top-16 left-0 right-0"} `}>
       <div className="relative overflow-x-auto">
-        <div className="relative text-gray-500 p-2 flex items-center justify-between border">
+        <div className="relative text-gray-500 p-2 flex items-center justify-between border bg-[#F2F4F6]">
           <div> Processed Results</div>
           <div className="flex items-center space-x-4 text-[18px]">
             <i className="fa-solid fa-download cursor-pointer"></i>
@@ -165,7 +165,7 @@ const DataTable = () => {
                         className="bg-white relative border"
                         colSpan={columns.length}
                       >
-                        <div className="flex flex-col items-center justify-center bg-slate-100">
+                        <div className="flex flex-col items-center justify-center bg-[#F2F4F6]">
                           <div className=" bg-white p-2 text-md w-[80%] shadow-lg my-2">
                             <div className="text-sky-800 text-2xl text-center w-full font-bold  border-[sky] pb-1 ">
                               Related Questions
@@ -198,7 +198,7 @@ const DataTable = () => {
                                 <li>All of the above </li>
                               </div>
                             </div>
-                            <div className="bg-white p-2 text-md border-b mx-4 ">
+                            <div className="bg-white p-2 text-md mx-4 ">
                               <div className="text-sky-800 font-semibold">
                                 3. What is your name?
                               </div>
@@ -219,7 +219,7 @@ const DataTable = () => {
             })}
           </tbody>
         </table>
-        <div className="m-4 flex items-center sm:justify-center font-semibold">
+        <div className="m-4 flex items-center sm:justify-center font-semibold bg-[#F2F4F6]">
           <div className="w-full lg:w-1/2 flex items-center justify-between text-sm">
             <div
               onClick={previousPage}

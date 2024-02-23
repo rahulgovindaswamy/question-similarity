@@ -6,8 +6,7 @@ const SimilarQuestions = () => {
   const [showFilterOption, setShowFilterOption] = useState(true);
 
   return (
-    <div className="bg-[#F2F4F6] h-screen p-24 w-full">
-      <div className="w-full h-[1px] bg-gray-300"></div>
+    <div className="w-full">
       <div className="mt-5 text-[#374043]">
         <div className="text-xl font-semibold">View Similar Questions</div>
         <div className="text-sm leading-relaxed">

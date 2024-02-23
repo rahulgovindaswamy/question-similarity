@@ -11,8 +11,7 @@ const UploadQuestions = () => {
     setUploadFile(file);
   };
   return (
-    <div className="bg-[#F2F4F6] h-screen p-24 w-full">
-      <div className="w-full h-[1px] bg-gray-300"></div>
+    <div className="w-full">
       <div className="mt-5 text-[#374043]">
         <div className="text-xl font-semibold">
           Upload and View Question Bank
