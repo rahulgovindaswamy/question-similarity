@@ -1,49 +1,7 @@
 import { useEffect, useState } from "react";
 
-const rowData: any = [
-  {
-    question: "A very strong wind is called",
-    relatedCount: 3,
-    score: 7.2,
-    slNo: 12,
-  },
-  {
-    question: "A soft wind is called breeze",
-    relatedCount: 4,
-    score: 5.2,
-    slNo: 14,
-  },
-  {
-    question: "Integrated system that helps you build embedded",
-    relatedCount: 3,
-    score: 7.2,
-    slNo: 15,
-  },
-  {
-    question: "Play Music is no longer available",
-    relatedCount: 4,
-    score: 9.0,
-    slNo: 89,
-  },
-];
-const columns = [
-  { id: "slNo", label: "SL. No", width: 100, align: "text-center" },
-  {
-    id: "question",
-    label: "Question Team",
-    width: 600,
-    align: "text-left",
-  },
-  { id: "score", label: "Score", width: 100, align: "text-center" },
-  {
-    id: "relatedCount",
-    label: "Related Count",
-    width: 120,
-    align: "text-center",
-  },
-  { id: "view", label: "View", width: 100, align: "text-center" },
-];
-const DataTable = () => {
+const DataTable = (props: any) => {
+  const { rowData, columns } = props;
   const [showDetail, setShowDetails] = useState(false);
   const [indexing, setIndexing] = useState(-1);
   const [maxTable, setMaxTable] = useState(false);
