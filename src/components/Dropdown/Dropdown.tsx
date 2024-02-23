@@ -11,7 +11,7 @@ export default function SelectLabels() {
   };
 
   return (
-    <FormControl sx={{ minWidth: 300 }} size="small">
+    <FormControl sx={{ width: "100%" }} size="small">
       <Select
         size="small"
         value={filterOption}

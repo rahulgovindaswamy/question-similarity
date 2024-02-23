@@ -114,7 +114,10 @@ const DataTable = () => {
                   searchBlock ? "block" : "hidden"
                 } transition-all duration-500 ease-in-out absolute bg-white right-8 min-w-[300px] h-10 pl-2 rounded-sm border text-sm outline-none focus:border-blue-500`}
               />
-              <i className="absolute right-12   fa-solid fa-xmark cursor-pointer"></i>
+              <i
+                onClick={() => setSearchBlock(false)}
+                className="absolute right-12   fa-solid fa-xmark cursor-pointer"
+              ></i>
 
               <div
                 onClick={() => setSearchBlock(false)}

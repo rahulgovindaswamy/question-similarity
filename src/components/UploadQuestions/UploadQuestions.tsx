@@ -37,7 +37,7 @@ const UploadQuestions = () => {
             <div className="bg-[#F2F4F6] p-5 mt-3 rounded-sm">
               <label className="relative">
                 <div className="sm:flex items-center justify-between">
-                  <div className="sm:flex items-center sm:space-x-4">
+                  <div className="flex items-center space-x-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="40"

@@ -30,19 +30,15 @@ const SimilarQuestions = () => {
         </div>
         <div className="h-[1px] bg-gray-300"></div>
         {showFilterOption && (
-          <div className="px-2 mt-3">
-            <div className="md:flex items-center justify-between text-[#374043] font-semibold">
-              <div className="sm:w-2/3 w-full px-4">
+          <div className="px-4 mt-3">
+            <div className="w-full lg:flex items-center justify-between text-[#374043] font-semibold">
+              <div className="lg:w-1/2 w-full">
                 <div className="mb-2">Above Score</div>
-                <div className="md:w-[500px] w-full">
-                  <CustomMarks />
-                </div>
+                <CustomMarks />
               </div>
-              <div className="sm:w-1/3 w-full">
+              <div className="lg:w-1/4 w-full ">
                 <div className="mb-1">Filter By</div>
-                <div className="">
-                  <SelectLabels />
-                </div>
+                <SelectLabels />
               </div>
             </div>
             <div className="text-sm px-4 py-4 text-[#374043] font-semibold opacity-80">
