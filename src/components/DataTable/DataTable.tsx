@@ -85,7 +85,7 @@ const DataTable = () => {
   };
   return (
     <div className={`${maxTable && "absolute w-full top-16 left-0 right-0"} `}>
-      <div className="relative overflow-x-auto">
+      <div className="relative overflow-x-auto bg-[#F2F4F6]">
         <div className="relative text-gray-500 p-2 flex items-center justify-between border bg-[#F2F4F6]">
           <div> Processed Results</div>
           <div className="flex items-center space-x-4 text-[18px]">
