@@ -72,6 +72,12 @@ const columns = [
     width: 120,
     align: "text-left",
   },
+  {
+    id: "preview",
+    label: "Preview",
+    width: 120,
+    align: "text-center",
+  },
 ];
 
 const UploadQuestions = () => {

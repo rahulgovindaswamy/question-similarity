@@ -6,6 +6,7 @@ const DataTable = (props: any) => {
   const [indexing, setIndexing] = useState(-1);
   const [maxTable, setMaxTable] = useState(false);
   const [searchBlock, setSearchBlock] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     setIndexing(-1);
@@ -32,6 +33,15 @@ const DataTable = (props: any) => {
       return (
         <div
           onClick={() => onClickShowDetails(index)}
+          className="px-2 py-1 text-sm text-sky-800 cursor-pointer"
+        >
+          <i className="fa-solid fa-eye text-[16px]"></i>
+        </div>
+      );
+    } else if (column.id === "preview") {
+      return (
+        <div
+          onClick={() => setShowInfo(true)}
           className="px-2 py-1 text-sm text-sky-800 cursor-pointer"
         >
           <i className="fa-solid fa-eye text-[16px]"></i>
@@ -72,7 +82,7 @@ const DataTable = (props: any) => {
                   searchBlock ? "block" : "hidden"
                 } transition-all duration-500 ease-in-out absolute bg-white right-8 min-w-[300px] h-10 pl-2 rounded-sm border text-sm outline-none focus:border-blue-500`}
               />
-              <i className="absolute right-12   fa-solid fa-xmark cursor-pointer"></i>
+              <i className="absolute right-12 fa-solid fa-xmark cursor-pointer"></i>
 
               <div
                 onClick={() => setSearchBlock(false)}
@@ -197,6 +207,35 @@ const DataTable = (props: any) => {
           </div>
         </div>
       </div>
+      {showInfo && (
+        <div
+          className="flex items-center justify-center fixed top-0 left-0 w-full h-full"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 98 }}
+        >
+          <div className="w-[500px] h-[220px] bg-white border rounded-sm shadow-sm  ">
+            <div className="relative  w-full h-fit">
+              <div className="bg-white p-2 text-md mx-4">
+                <div className="text-xl font-semibold text-sky-700 border-b pb-1 my-2">
+                  Question Details
+                </div>
+                <div className="text-sky-800 font-semibold mb-2">
+                  1. What is capital of india?
+                </div>
+                <div className="list-disc	2xl:flex items-center justify-between text-[#75736d] ">
+                  <li>Karnataka</li>
+                  <li>Tamilnadu</li>
+                  <li>Andra Pradesh</li>
+                  <li>Kerala</li>
+                </div>{" "}
+              </div>
+              <i
+                onClick={() => setShowInfo(false)}
+                className="absolute text-[18px] right-2 top-2 fa-solid fa-xmark cursor-pointer opacity-50"
+              ></i>
+            </div>
+          </div>{" "}
+        </div>
+      )}
     </div>
   );
 };
