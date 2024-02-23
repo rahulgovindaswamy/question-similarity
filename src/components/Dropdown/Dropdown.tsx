@@ -4,7 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 export default function SelectLabels() {
-  const [filterOption, setFilterOption] = React.useState("");
+  const [filterOption, setFilterOption] = React.useState("Stem");
 
   const handleChange = (event: SelectChangeEvent) => {
     setFilterOption(event.target.value);

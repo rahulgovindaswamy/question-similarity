@@ -1,6 +1,51 @@
 import { useState } from "react";
 import SelectLabels from "../Dropdown/Dropdown";
 import CustomMarks from "../Slider/Slider";
+import DataTable from "../DataTable/DataTable";
+
+const rowData: any = [
+  {
+    question: "A very strong wind is called",
+    relatedCount: 3,
+    score: 7.2,
+    slNo: 12,
+  },
+  {
+    question: "A soft wind is called breeze",
+    relatedCount: 4,
+    score: 5.2,
+    slNo: 14,
+  },
+  {
+    question: "Integrated system that helps you build embedded",
+    relatedCount: 3,
+    score: 7.2,
+    slNo: 15,
+  },
+  {
+    question: "Play Music is no longer available",
+    relatedCount: 4,
+    score: 9.0,
+    slNo: 89,
+  },
+];
+const columns = [
+  { id: "slNo", label: "Excel Row No.", width: 150, align: "text-center" },
+  {
+    id: "question",
+    label: "Question Steam",
+    width: 600,
+    align: "text-left",
+  },
+  { id: "score", label: "Score", width: 100, align: "text-center" },
+  {
+    id: "relatedCount",
+    label: "Related Count",
+    width: 120,
+    align: "text-center",
+  },
+  { id: "view", label: "View", width: 100, align: "text-center" },
+];
 
 const SimilarQuestions = () => {
   const [showFilterOption, setShowFilterOption] = useState(true);
@@ -47,10 +92,12 @@ const SimilarQuestions = () => {
           </div>
         )}
       </div>
-      <div className="bg-white rounded-sm mt-5 p-5 text-[#374043] font-semibold opacity-70">
-        Please upload the question file in the first tab to check the Duplicate
-        Questions.
+      <div className="bg-white rounded-sm mt-5 p-5 text-[#374043] font-semibold opacity-70 mb-5">
+        {/* Please upload the question file in the first tab to check the Duplicate
+        Questions. */}
+        Similarity on Question Stem:
       </div>
+      <DataTable rowData={rowData} columns={columns} />
     </div>
   );
 };

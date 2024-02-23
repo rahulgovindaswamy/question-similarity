@@ -2,6 +2,40 @@ import { useState } from "react";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import SearchInput from "../Input/Input";
+import DataTable from "../DataTable/DataTable";
+
+const rowData: any = [
+  {
+    question: "A very strong wind is called",
+    score: 7.2,
+    slNo: 12,
+  },
+  {
+    question: "A soft wind is called breeze",
+    score: 5.2,
+    slNo: 14,
+  },
+  {
+    question: "Integrated system that helps you build embedded",
+    score: 7.2,
+    slNo: 15,
+  },
+  {
+    question: "Play Music is no longer available",
+    score: 9.0,
+    slNo: 89,
+  },
+];
+const columns = [
+  { id: "slNo", label: "SL. No", width: 100, align: "text-center" },
+  {
+    id: "question",
+    label: "Question Steam",
+    width: 600,
+    align: "text-left",
+  },
+  { id: "score", label: "Score", width: 100, align: "text-center" },
+];
 
 const SearchSimilarQuestions = () => {
   const [questionStem, setQuestionStem] = useState("");
@@ -41,9 +75,11 @@ const SearchSimilarQuestions = () => {
           </div>
         </div>
       </div>
-      <div className="w-full bg-white rounded-sm mt-5 p-5 text-[#374043] font-semibold opacity-70">
-        Please enter a search query before checking similarity.
+      <div className="w-full bg-white rounded-sm mt-5 p-5 text-[#374043] font-semibold opacity-70 mb-5">
+        {/* Please enter a search query before checking similarity. */}
+        Similarity on Question Stem (Search):
       </div>
+      <DataTable rowData={rowData} columns={columns} />
     </div>
   );
 };
