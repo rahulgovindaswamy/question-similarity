@@ -12,13 +12,21 @@ const UploadQuestions = () => {
   };
   return (
     <div className="w-full">
-      <div className="mt-5 text-[#374043]">
-        <div className="text-xl font-semibold mb-1">
-          Upload and View Question Bank
+      <div className="sm:flex items-center justify-between">
+        <div className="mt-5 text-[#374043]">
+          <div className="text-xl font-semibold mb-1">
+            Upload and View Question Bank
+          </div>
+          <div className="text-sm leading-relaxed opacity-80">
+            You can upload your .xls/xlsx file here to view your question bank.
+          </div>
         </div>
-        <div className="text-sm leading-relaxed opacity-80">
-          You can upload your .xls/xlsx file here to view your question bank.
-        </div>
+        <Button>
+          <div className="flex items-center space-x-2">
+            <i className="fa-solid fa-cloud-arrow-down"></i>
+            <div className="font-semibold">Download Template</div>
+          </div>
+        </Button>
       </div>
       <div className="bg-white p-5 rounded-sm my-5">
         <div className="flex items-center justify-between">

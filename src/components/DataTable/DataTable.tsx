@@ -86,7 +86,7 @@ const DataTable = () => {
   return (
     <div className={`${maxTable && "absolute w-full top-16 left-0 right-0"} `}>
       <div className="relative overflow-x-auto bg-[#F2F4F6]">
-        <div className="relative text-[#374043] opacity-70 p-2 flex items-center justify-between border border-[#C3C8CB] bg-[#F2F4F6] border-b-0">
+        <div className="relative text-[#374043] opacity-90 p-2 flex items-center justify-between border border-[#C3C8CB] bg-white border-b-0">
           <div> Processed Results</div>
           <div className="flex items-center space-x-4 text-[18px]">
             <i className="fa-solid fa-download cursor-pointer"></i>
@@ -114,10 +114,7 @@ const DataTable = () => {
                   searchBlock ? "block" : "hidden"
                 } transition-all duration-500 ease-in-out absolute bg-white right-8 min-w-[300px] h-10 pl-2 rounded-sm border text-sm outline-none focus:border-blue-500`}
               />
-              <i
-                onClick={() => setSearchBlock(false)}
-                className="absolute right-12   fa-solid fa-xmark cursor-pointer"
-              ></i>
+              <i className="absolute right-12   fa-solid fa-xmark cursor-pointer"></i>
 
               <div
                 onClick={() => setSearchBlock(false)}
