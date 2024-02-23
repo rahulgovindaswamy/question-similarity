@@ -79,7 +79,7 @@ const SearchSimilarQuestions = () => {
         {/* Please enter a search query before checking similarity. */}
         Similarity on Question Stem (Search):
       </div>
-      <DataTable rowData={rowData} columns={columns} />
+      <DataTable rowData={rowData} columns={columns} hasTableActions={false} />
     </div>
   );
 };

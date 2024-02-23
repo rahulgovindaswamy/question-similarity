@@ -229,7 +229,7 @@ const UploadQuestions = () => {
           </div>
         )}
       </div>
-      <DataTable rowData={rowData} columns={columns} />
+      <DataTable rowData={rowData} columns={columns} hasTableActions={true} />
     </div>
   );
 };

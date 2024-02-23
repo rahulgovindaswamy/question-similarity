@@ -97,7 +97,7 @@ const SimilarQuestions = () => {
         Questions. */}
         Similarity on Question Stem:
       </div>
-      <DataTable rowData={rowData} columns={columns} />
+      <DataTable rowData={rowData} columns={columns} hasTableActions={false} />
     </div>
   );
 };

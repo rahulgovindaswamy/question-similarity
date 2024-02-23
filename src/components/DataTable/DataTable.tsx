@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const DataTable = (props: any) => {
-  const { rowData, columns } = props;
+  const { rowData, columns, hasTableActions } = props;
   const [showDetail, setShowDetails] = useState(false);
   const [indexing, setIndexing] = useState(-1);
   const [maxTable, setMaxTable] = useState(false);
@@ -60,24 +60,26 @@ const DataTable = (props: any) => {
       <div className="bg-[#F2F4F6]">
         <div className="relative text-[#374043] opacity-90 p-2 flex items-center justify-between border border-[#C3C8CB] bg-white border-b-0">
           <div> Processed Results</div>
-          <div className="flex items-center space-x-4 text-[18px]">
-            <i className="fa-solid fa-download cursor-pointer"></i>
-            <i
-              onClick={() => setSearchBlock(true)}
-              className="fa-solid fa-magnifying-glass cursor-pointer"
-            ></i>
-            {maxTable ? (
+          {hasTableActions && (
+            <div className="flex items-center space-x-4 text-[18px]">
+              <i className="fa-solid fa-download cursor-pointer"></i>
               <i
-                className="fa-solid fa-compress cursor-pointer"
-                onClick={() => setMaxTable(!maxTable)}
+                onClick={() => setSearchBlock(true)}
+                className="fa-solid fa-magnifying-glass cursor-pointer"
               ></i>
-            ) : (
-              <i
-                className="fa-solid fa-expand cursor-pointer"
-                onClick={() => setMaxTable(!maxTable)}
-              ></i>
-            )}
-          </div>
+              {maxTable ? (
+                <i
+                  className="fa-solid fa-compress cursor-pointer"
+                  onClick={() => setMaxTable(!maxTable)}
+                ></i>
+              ) : (
+                <i
+                  className="fa-solid fa-expand cursor-pointer"
+                  onClick={() => setMaxTable(!maxTable)}
+                ></i>
+              )}
+            </div>
+          )}
           {searchBlock && (
             <>
               <input
