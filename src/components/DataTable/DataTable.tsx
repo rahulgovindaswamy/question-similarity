@@ -46,6 +46,8 @@ const columns = [
 const DataTable = () => {
   const [showDetail, setShowDetails] = useState(false);
   const [indexing, setIndexing] = useState(-1);
+  const [maxTable, setMaxTable] = useState(false);
+  const [searchBlock, setSearchBlock] = useState(false);
 
   useEffect(() => {
     setIndexing(-1);
@@ -82,7 +84,46 @@ const DataTable = () => {
     }
   };
   return (
-    <div className="relative overflow-x-auto ">
+    <div className="relative overflow-x-auto">
+      <div className="relative text-gray-500 p-2 flex items-center justify-between border">
+        <div> Processed Results</div>
+        <div className="flex items-center space-x-4 text-[18px]">
+          <i className="fa-solid fa-download cursor-pointer"></i>
+          <i
+            onClick={() => setSearchBlock(true)}
+            className="fa-solid fa-magnifying-glass cursor-pointer"
+          ></i>
+          {maxTable ? (
+            <i
+              className="fa-solid fa-compress cursor-pointer"
+              onClick={() => setMaxTable(!maxTable)}
+            ></i>
+          ) : (
+            <i
+              className="fa-solid fa-expand cursor-pointer"
+              onClick={() => setMaxTable(!maxTable)}
+            ></i>
+          )}
+        </div>
+        {searchBlock && (
+          <>
+            <input
+              placeholder="Search here"
+              className={`${
+                searchBlock ? "block" : "hidden"
+              } transition-all duration-500 ease-in-out absolute bg-white right-8 min-w-[300px] h-10 pl-2 rounded-sm border text-sm outline-none focus:border-blue-500`}
+            />
+            <i className="absolute right-12   fa-solid fa-xmark cursor-pointer"></i>
+
+            <div
+              onClick={() => setSearchBlock(false)}
+              className="absolute bg-blue-500 text-white right-0 h-10 w-10 flex items-center justify-center "
+            >
+              <i className=" fa-solid fa-magnifying-glass cursor-pointer te"></i>
+            </div>
+          </>
+        )}
+      </div>
       <table className="w-full text-left bg-white rounded-md">
         <thead className="text-[16px] text-[#0B6481] bg-slate-200 tracking-tight font-bold opacity-70	">
           <tr>
@@ -177,7 +218,6 @@ const DataTable = () => {
           })}
         </tbody>
       </table>
-
       <div className="m-4 flex items-center sm:justify-center font-semibold">
         <div className="w-full lg:w-1/2 flex items-center justify-between text-sm">
           <div
