@@ -3,7 +3,7 @@ import Home from "./screens/Home/Home";
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.REACT_APP_SUBDIRECTORY}>
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>

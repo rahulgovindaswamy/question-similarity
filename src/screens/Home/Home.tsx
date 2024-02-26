@@ -20,8 +20,7 @@ const Home = () => {
           src={wave}
           alt="wave"
           aria-label="wave"
-          width={200}
-          className="h-fit"
+          className="h-fit sm:w-[200px] w-[160px]"
         />
       </div>
       <div className="sm:px-10 xs:px-8 px-6 xs:py-6 py-4 bg-[#F2F4F6] min-h-[calc(100vh_-_64px)] md:px-24">

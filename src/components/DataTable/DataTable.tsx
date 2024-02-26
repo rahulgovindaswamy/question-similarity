@@ -23,10 +23,10 @@ const DataTable = (props: any) => {
   };
 
   const previousPage = () => {
-    alert("prev");
+    return;
   };
   const nextPage = () => {
-    alert("prev");
+    return;
   };
   const showData = (value: any, column: any, index: number) => {
     if (column.id === "view") {

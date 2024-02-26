@@ -198,9 +198,9 @@ const UploadQuestions = () => {
                           d="M17.25,3H8.5A2.5,2.5,0,0,0,6,5.5v20A2.5,2.5,0,0,0,8.5,28h15A2.5,2.5,0,0,0,26,25.5V11.75Z"
                           fill="none"
                           stroke="#5f6669"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2.5"
                         />
                         <path
                           id="Path_5"
@@ -209,9 +209,9 @@ const UploadQuestions = () => {
                           transform="translate(-4)"
                           fill="none"
                           stroke="#5f6669"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2.5"
                         />
                       </g>
                     </svg>
