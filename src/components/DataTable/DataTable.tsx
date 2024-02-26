@@ -1,12 +1,27 @@
 import { useEffect, useState } from "react";
 
+export type ColumnProps = {
+  id: string;
+  label: string;
+  width: number;
+  align: string;
+};
+
 const DataTable = (props: any) => {
-  const { rowData, columns, hasTableActions } = props;
+  const {
+    rowData,
+    columns,
+    hasTableActions,
+    sortOrder,
+    sortingHandling,
+    sortingArray,
+  } = props;
   const [showDetail, setShowDetails] = useState(false);
   const [indexing, setIndexing] = useState(-1);
   const [maxTable, setMaxTable] = useState(false);
   const [searchBlock, setSearchBlock] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [columnId, setColumnId] = useState("");
 
   useEffect(() => {
     setIndexing(-1);
@@ -28,33 +43,83 @@ const DataTable = (props: any) => {
   const nextPage = () => {
     return;
   };
-  const showData = (value: any, column: any, index: number) => {
+  const showData = (
+    value: string | number,
+    column: ColumnProps,
+    index: number
+  ) => {
     if (column.id === "view") {
       return (
         <div
           onClick={() => onClickShowDetails(index)}
           className="px-2 py-1 text-sm text-sky-800 cursor-pointer"
         >
-          <i className="fa-solid fa-eye text-[16px]"></i>
+          {showDetail && indexing === index ? (
+            <i className="fa-solid fa-eye-slash text-[16px]"></i>
+          ) : (
+            <i className="fa-solid fa-eye text-[16px]"></i>
+          )}
         </div>
       );
     } else if (column.id === "preview") {
       return (
         <div
-          onClick={() => setShowInfo(true)}
+          onClick={() => {
+            setShowInfo(true);
+            setIndexing(index);
+          }}
           className="px-2 py-1 text-sm text-sky-800 cursor-pointer"
         >
-          <i className="fa-solid fa-eye text-[16px]"></i>
+          {showInfo && indexing === index ? (
+            <i className="fa-solid fa-eye-slash text-[16px]"></i>
+          ) : (
+            <i className="fa-solid fa-eye text-[16px]"></i>
+          )}
         </div>
       );
     } else {
       return value;
     }
   };
+
+  const sorting = (column: ColumnProps, order: string) => {
+    setColumnId(column.id);
+    sortingHandling?.(column.id, order);
+  };
+
+  const handleTableHeader = (columnObj: ColumnProps) => {
+    return (
+      <div className="flex items-center space-x-2">
+        <div className="">{columnObj.label}</div>
+        {sortingArray.includes(columnObj.id) && (
+          <div className="cursor-pointer text-[12px]">
+            {columnId === columnObj.id && sortOrder !== "ASC" ? (
+              <div onClick={() => sorting(columnObj, "DESC")}>
+                <i
+                  className={`fa-solid fa-arrow-up ${
+                    columnId === columnObj.id && "text-black"
+                  }`}
+                ></i>
+              </div>
+            ) : (
+              <div onClick={() => sorting(columnObj, "ASC")}>
+                <i
+                  data-testid="sort-click"
+                  className={`fa-solid fa-arrow-down ${
+                    columnId === columnObj.id && "text-black"
+                  }`}
+                ></i>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
   return (
     <div
       className={`bg-[#F2F4F6] ${
-        maxTable && "absolute w-full top-16 left-0 right-0 min-h-sc"
+        maxTable && "absolute w-full top-16 left-0 right-0 min-h-screen"
       } `}
     >
       <div className="w-full relative text-[#374043] opacity-90 p-2 flex items-center justify-between border border-[#C3C8CB] bg-white border-b-0">
@@ -100,28 +165,28 @@ const DataTable = (props: any) => {
       </div>{" "}
       <div className={`overflow-x-auto`}>
         <table className="w-full text-left bg-white rounded-md relative overflow-x-auto">
-          <thead className="text-[16px] text-[#0B6481] bg-slate-200 tracking-tight font-bold opacity-70">
+          <thead className="text-[16px] text-[#0B6481] bg-slate-200 tracking-tight opacity-70">
             <tr>
-              {columns.map((column: any, index: number) => {
+              {columns.map((column: ColumnProps, _index: number) => {
                 return (
                   <th
-                    key={index}
+                    key={column.id}
                     scope="col"
                     className={`px-4 py-2 ${column.align}`}
                     style={{ width: `${column.width}px` }}
                   >
-                    {column.label}
+                    {handleTableHeader(column)}
                   </th>
                 );
               })}
             </tr>
           </thead>
-          <tbody className="text-[15px] opacity-90 text-[#374043]">
+          <tbody className="text-[15px] opacity-90 text-[#374043] w-full">
             {rowData.map((row: any, i: number) => {
               return (
                 <>
-                  <tr key={i}>
-                    {columns?.map((column: any, index: number) => {
+                  <tr key={rowData.id}>
+                    {columns?.map((column: any, _index: number) => {
                       return (
                         <td
                           style={{ width: `${column.width}px` }}
@@ -148,18 +213,18 @@ const DataTable = (props: any) => {
                               <div className="text-sky-800 font-semibold">
                                 1. What is capital of india?
                               </div>
-                              <div className="list-disc	2xl:flex items-center justify-between text-[#75736d] ">
+                              <ul className="list-disc text-[#75736d] mx-8">
                                 <li>Karnataka</li>
                                 <li>Tamilnadu</li>
                                 <li>Andra Pradesh</li>
                                 <li>Kerala</li>
-                              </div>{" "}
+                              </ul>{" "}
                             </div>
                             <div className=" bg-white p-2 text-md border-b mx-4">
                               <div className="text-sky-800 font-semibold">
                                 2. Check line in a chain surveying ?
                               </div>
-                              <div className="list-disc	2xl:flex items-center justify-between text-[#75736d] ">
+                              <ul className="list-disc text-[#75736d] mx-8">
                                 <li>Checks the accuracy of the framework </li>
                                 <li>
                                   Enables the surveyor to locate the interior
@@ -170,18 +235,18 @@ const DataTable = (props: any) => {
                                   Fixes up the directions of all other lines{" "}
                                 </li>
                                 <li>All of the above </li>
-                              </div>
+                              </ul>
                             </div>
                             <div className="bg-white p-2 text-md mx-4 ">
                               <div className="text-sky-800 font-semibold">
                                 3. What is your name?
                               </div>
-                              <div className="list-disc	2xl:flex items-center justify-between text-[#75736d]">
+                              <ul className="list-disc text-[#75736d] mx-8">
                                 <li>Sunil charan </li>
                                 <li>Vinay</li>
                                 <li>Rahul</li>
                                 <li>Deepak</li>
-                              </div>
+                              </ul>
                             </div>
                           </div>
                         </div>
@@ -226,12 +291,12 @@ const DataTable = (props: any) => {
                   <div className="text-sky-800 font-semibold mb-2">
                     1. What is capital of india?
                   </div>
-                  <div className="list-disc	2xl:flex items-center justify-between text-[#75736d] ">
+                  <ul className="list-disc text-[#75736d] mx-8">
                     <li>Karnataka</li>
                     <li>Tamilnadu</li>
                     <li>Andra Pradesh</li>
                     <li>Kerala</li>
-                  </div>{" "}
+                  </ul>{" "}
                 </div>
                 <i
                   onClick={() => setShowInfo(false)}

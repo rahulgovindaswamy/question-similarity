@@ -40,7 +40,7 @@ const rowData: any = [
   },
 ];
 const columns = [
-  { id: "slNo", label: "SL. No", width: 100, align: "text-center" },
+  { id: "slNo", label: "SL. No", width: 150, align: "text-center" },
   { id: "type", label: "Type", width: 200, align: "text-left" },
   {
     id: "question",
@@ -51,25 +51,25 @@ const columns = [
   {
     id: "option1",
     label: "Option 1",
-    width: 120,
+    width: 150,
     align: "text-left",
   },
   {
     id: "option2",
     label: "Option 2",
-    width: 120,
+    width: 150,
     align: "text-left",
   },
   {
     id: "option3",
     label: "Option 3",
-    width: 120,
+    width: 150,
     align: "text-left",
   },
   {
     id: "option4",
     label: "Option 4",
-    width: 120,
+    width: 150,
     align: "text-left",
   },
   {
@@ -83,11 +83,27 @@ const columns = [
 const UploadQuestions = () => {
   const [showBrowseFile, setShowBrowseFile] = useState(true);
   const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const [sortOrder, setSortOrder] = useState("ASC");
+  const [sortBy, setSortBy] = useState("slNo");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files?.[0];
     setUploadFile(file);
   };
+  const sorting = (sortOrder: string) => {
+    let temp = "";
+    if (sortOrder == "DESC") {
+      temp = "ASC";
+    } else {
+      temp = "DESC";
+    }
+    return temp;
+  };
+  const sortData = (arg: string, columnId: string) => {
+    setSortOrder(sorting(sortOrder));
+    setSortBy(columnId);
+  };
+
   return (
     <div className="w-full">
       <div className="sm:flex items-center justify-between">
@@ -229,7 +245,22 @@ const UploadQuestions = () => {
           </div>
         )}
       </div>
-      <DataTable rowData={rowData} columns={columns} hasTableActions={true} />
+      <DataTable
+        rowData={rowData}
+        columns={columns}
+        hasTableActions={true}
+        sortOrder={sortOrder}
+        sortingHandling={sortData}
+        sortingArray={[
+          "slNo",
+          "type",
+          "question",
+          "option1",
+          "option2",
+          "option3",
+          "option4",
+        ]}
+      />
     </div>
   );
 };

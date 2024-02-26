@@ -41,7 +41,7 @@ const columns = [
   {
     id: "relatedCount",
     label: "Related Count",
-    width: 120,
+    width: 150,
     align: "text-center",
   },
   { id: "view", label: "View", width: 100, align: "text-center" },
