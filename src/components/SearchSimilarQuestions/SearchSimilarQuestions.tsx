@@ -30,7 +30,7 @@ const columns = [
   { id: "slNo", label: "SL. No", width: 100, align: "text-center" },
   {
     id: "question",
-    label: "Question Steam",
+    label: "Question Stem",
     width: 600,
     align: "text-left",
   },

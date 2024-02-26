@@ -33,7 +33,7 @@ const columns = [
   { id: "slNo", label: "Excel Row No.", width: 150, align: "text-center" },
   {
     id: "question",
-    label: "Question Steam",
+    label: "Question Stem",
     width: 600,
     align: "text-left",
   },
