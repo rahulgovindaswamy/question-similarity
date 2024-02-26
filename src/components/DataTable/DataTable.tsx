@@ -91,7 +91,7 @@ const DataTable = (props: any) => {
     return (
       <div className="flex items-center space-x-2">
         <div className="">{columnObj.label}</div>
-        {sortingArray.includes(columnObj.id) && (
+        {sortingArray?.includes(columnObj.id) && (
           <div className="cursor-pointer text-[12px]">
             {columnId === columnObj.id && sortOrder !== "ASC" ? (
               <div onClick={() => sorting(columnObj, "DESC")}>
