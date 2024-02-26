@@ -53,52 +53,52 @@ const DataTable = (props: any) => {
   };
   return (
     <div
-      className={`relative overflow-x-auto ${
-        maxTable && "absolute w-full top-16 left-0 right-0"
+      className={`bg-[#F2F4F6] ${
+        maxTable && "absolute w-full top-16 left-0 right-0 min-h-sc"
       } `}
     >
-      <div className="bg-[#F2F4F6]">
-        <div className="relative text-[#374043] opacity-90 p-2 flex items-center justify-between border border-[#C3C8CB] bg-white border-b-0">
-          <div> Processed Results</div>
-          {hasTableActions && (
-            <div className="flex items-center space-x-4 text-[18px]">
-              <i className="fa-solid fa-download cursor-pointer"></i>
+      <div className="w-full relative text-[#374043] opacity-90 p-2 flex items-center justify-between border border-[#C3C8CB] bg-white border-b-0">
+        <div> Processed Results</div>
+        {hasTableActions && (
+          <div className="flex items-center space-x-4 text-[18px]">
+            <i className="fa-solid fa-download cursor-pointer"></i>
+            <i
+              onClick={() => setSearchBlock(true)}
+              className="fa-solid fa-magnifying-glass cursor-pointer"
+            ></i>
+            {maxTable ? (
               <i
-                onClick={() => setSearchBlock(true)}
-                className="fa-solid fa-magnifying-glass cursor-pointer"
+                className="fa-solid fa-compress cursor-pointer"
+                onClick={() => setMaxTable(!maxTable)}
               ></i>
-              {maxTable ? (
-                <i
-                  className="fa-solid fa-compress cursor-pointer"
-                  onClick={() => setMaxTable(!maxTable)}
-                ></i>
-              ) : (
-                <i
-                  className="fa-solid fa-expand cursor-pointer"
-                  onClick={() => setMaxTable(!maxTable)}
-                ></i>
-              )}
-            </div>
-          )}
-          {searchBlock && (
-            <>
-              <input
-                placeholder="Search here"
-                className={`${
-                  searchBlock ? "block" : "hidden"
-                } transition-all duration-500 ease-in-out absolute bg-white right-8 min-w-[300px] h-10 pl-2 rounded-sm border text-sm outline-none focus:border-blue-500`}
-              />
-              <i className="absolute right-12 fa-solid fa-xmark cursor-pointer"></i>
+            ) : (
+              <i
+                className="fa-solid fa-expand cursor-pointer"
+                onClick={() => setMaxTable(!maxTable)}
+              ></i>
+            )}
+          </div>
+        )}
+        {searchBlock && (
+          <>
+            <input
+              placeholder="Search here"
+              className={`${
+                searchBlock ? "block" : "hidden"
+              } transition-all duration-500 ease-in-out absolute bg-white right-8 min-w-[300px] h-10 pl-2 rounded-sm border text-sm outline-none focus:border-blue-500`}
+            />
+            <i className="absolute right-12 fa-solid fa-xmark cursor-pointer"></i>
 
-              <div
-                onClick={() => setSearchBlock(false)}
-                className="absolute bg-blue-500 text-white right-0 h-10 w-10 flex items-center justify-center "
-              >
-                <i className=" fa-solid fa-magnifying-glass cursor-pointer te"></i>
-              </div>
-            </>
-          )}
-        </div>
+            <div
+              onClick={() => setSearchBlock(false)}
+              className="absolute bg-blue-500 text-white right-0 h-10 w-10 flex items-center justify-center "
+            >
+              <i className=" fa-solid fa-magnifying-glass cursor-pointer te"></i>
+            </div>
+          </>
+        )}
+      </div>{" "}
+      <div className={`overflow-x-auto`}>
         <table className="w-full text-left bg-white rounded-md relative overflow-x-auto">
           <thead className="text-[16px] text-[#0B6481] bg-slate-200 tracking-tight font-bold opacity-70">
             <tr>
@@ -212,36 +212,36 @@ const DataTable = (props: any) => {
             </div>
           </div>
         </div>
-      </div>
-      {showInfo && (
-        <div
-          className="flex items-center justify-center fixed top-0 left-0 w-full h-full"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 98 }}
-        >
-          <div className="w-[500px] h-[220px] bg-white border rounded-sm shadow-sm  ">
-            <div className="relative  w-full h-fit">
-              <div className="bg-white p-2 text-md mx-4">
-                <div className="text-xl font-semibold text-sky-700 border-b pb-1 my-2">
-                  Question Details
+        {showInfo && (
+          <div
+            className="flex items-center justify-center fixed top-0 left-0 w-full h-full"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 98 }}
+          >
+            <div className="w-[500px] h-[220px] bg-white border rounded-sm shadow-sm  ">
+              <div className="relative  w-full h-fit">
+                <div className="bg-white p-2 text-md mx-4">
+                  <div className="text-xl font-semibold text-sky-700 border-b pb-1 my-2">
+                    Question Details
+                  </div>
+                  <div className="text-sky-800 font-semibold mb-2">
+                    1. What is capital of india?
+                  </div>
+                  <div className="list-disc	2xl:flex items-center justify-between text-[#75736d] ">
+                    <li>Karnataka</li>
+                    <li>Tamilnadu</li>
+                    <li>Andra Pradesh</li>
+                    <li>Kerala</li>
+                  </div>{" "}
                 </div>
-                <div className="text-sky-800 font-semibold mb-2">
-                  1. What is capital of india?
-                </div>
-                <div className="list-disc	2xl:flex items-center justify-between text-[#75736d] ">
-                  <li>Karnataka</li>
-                  <li>Tamilnadu</li>
-                  <li>Andra Pradesh</li>
-                  <li>Kerala</li>
-                </div>{" "}
+                <i
+                  onClick={() => setShowInfo(false)}
+                  className="absolute text-[18px] right-2 top-2 fa-solid fa-xmark cursor-pointer opacity-50"
+                ></i>
               </div>
-              <i
-                onClick={() => setShowInfo(false)}
-                className="absolute text-[18px] right-2 top-2 fa-solid fa-xmark cursor-pointer opacity-50"
-              ></i>
-            </div>
-          </div>{" "}
-        </div>
-      )}
+            </div>{" "}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
