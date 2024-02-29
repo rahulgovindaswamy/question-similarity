@@ -25,7 +25,7 @@ const SearchInput = (props: any) => {
       {value?.length > 0 && showClear && (
         <i
           onClick={onClearSearch}
-          className="absolute top-2 text-gray-400 right-[1px] cursor-pointer fa-solid fa-xmark bg-[#F2F4F6] px-2"
+          className="absolute top-[10px] text-gray-400 right-[2px] cursor-pointer fa-solid fa-xmark bg-[#F2F4F6] px-2"
         ></i>
       )}
     </div>

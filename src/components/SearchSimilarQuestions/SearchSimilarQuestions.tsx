@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Button from "../Button/Button";
-import Input from "../Input/Input";
 import SearchInput from "../Input/Input";
 import DataTable from "../DataTable/DataTable";
 

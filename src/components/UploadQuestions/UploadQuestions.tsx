@@ -232,7 +232,7 @@ const UploadQuestions = () => {
                       </g>
                     </svg>
                   </div>
-                  <div>{uploadFile && uploadFile.name}</div>
+                  <div>{uploadFile.name}</div>
                 </div>
                 <div
                   className="cursor-pointer"
