@@ -1,73 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import DataTable from "../DataTable/DataTable";
-const rowData: any = [
-  {
-    type: "Fill up the blanks",
-    question: "A very strong wind is called",
-    option1: "none",
-    option2: "none",
-    option3: "none",
-    option4: "none",
-    slNo: 12,
-  },
-  {
-    type: "Match the following",
-    question: "A soft wind is called breeze",
-    option1: "none",
-    option2: "none",
-    option3: "none",
-    option4: "none",
-    slNo: 14,
-  },
-  {
-    type: "MCQ",
-    question: "Integrated system that helps you build embedded",
-    option1: "option1",
-    option2: "option2",
-    option3: "option3",
-    option4: "option4",
-    slNo: 15,
-  },
-  {
-    type: "Match the following",
-    question: "Play Music is no longer available",
-    option1: "none",
-    option2: "none",
-    option3: "none",
-    option4: "none",
-    slNo: 89,
-  },
-];
+import Loader from "../Loader/Loader";
+import SnackBar from "../SnackBar/SnackBar";
+
 const columns = [
-  { id: "slNo", label: "SL. No", width: 150, align: "text-center" },
-  { id: "type", label: "Type", width: 200, align: "text-left" },
+  { id: "SL.No", label: "SL. No", width: 150, align: "text-center" },
+  { id: "Type", label: "Type", width: 250, align: "text-left" },
   {
-    id: "question",
+    id: "Question",
     label: "Question",
     width: 600,
     align: "text-left",
   },
   {
-    id: "option1",
+    id: "Option 1",
     label: "Option 1",
     width: 150,
     align: "text-left",
   },
   {
-    id: "option2",
+    id: "Option 2",
     label: "Option 2",
     width: 150,
     align: "text-left",
   },
   {
-    id: "option3",
+    id: "Option 3",
     label: "Option 3",
     width: 150,
     align: "text-left",
   },
   {
-    id: "option4",
+    id: "Option 4",
     label: "Option 4",
     width: 150,
     align: "text-left",
@@ -80,16 +45,27 @@ const columns = [
   },
 ];
 
-const UploadQuestions = () => {
+const UploadQuestions = (props: any) => {
+  const {
+    isLoading,
+    uploadFile,
+    questionRowData,
+    handleFileChange,
+    nextPage,
+    onClickPreviousPage,
+    totalCount,
+    page,
+    removeFile,
+  } = props;
   const [showBrowseFile, setShowBrowseFile] = useState(true);
-  const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [sortOrder, setSortOrder] = useState("ASC");
   const [sortBy, setSortBy] = useState("slNo");
+  const [snackBarOpen, setSnackBarOpen] = useState({
+    value: false,
+    message: "",
+    type: "",
+  });
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files?.[0];
-    setUploadFile(file);
-  };
   const sorting = (sortOrder: string) => {
     let temp = "";
     if (sortOrder == "DESC") {
@@ -104,8 +80,18 @@ const UploadQuestions = () => {
     setSortBy(columnId);
   };
 
+  const handleDownloadTemplate = () => {
+    const link = document.createElement("a");
+    link.href = "Items-Sample.xlsx";
+    link.download = "Items-Sample.xlsx";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="w-full">
+      {isLoading ? <Loader /> : null}
       <div className="sm:flex items-center justify-between">
         <div className="mt-5 text-[#374043]">
           <div className="text-xl font-semibold mb-1">
@@ -115,7 +101,7 @@ const UploadQuestions = () => {
             You can upload your .xls/xlsx file here to view your question bank.
           </div>
         </div>
-        <Button>
+        <Button onClick={handleDownloadTemplate}>
           <div className="flex items-center space-x-2">
             <i className="fa-solid fa-cloud-arrow-down"></i>
             <div className="font-semibold">Download Template</div>
@@ -189,6 +175,12 @@ const UploadQuestions = () => {
                   type="file"
                   accept=".xls, .xlsx"
                   onChange={handleFileChange}
+                  tabIndex={0}
+                  onKeyDown={(event: React.KeyboardEvent<HTMLElement>) => {
+                    if (event.key === "Enter") {
+                      handleFileChange;
+                    }
+                  }}
                   className="opacity-0 absolute w-full h-full top-0 cursor-pointer"
                 />
               </label>
@@ -234,10 +226,7 @@ const UploadQuestions = () => {
                   </div>
                   <div>{uploadFile.name}</div>
                 </div>
-                <div
-                  className="cursor-pointer"
-                  onClick={() => setUploadFile(null)}
-                >
+                <div className="cursor-pointer" onClick={removeFile}>
                   <i className="fa-solid fa-xmark opacity-80"></i>
                 </div>
               </div>
@@ -245,21 +234,36 @@ const UploadQuestions = () => {
           </div>
         )}
       </div>
-      <DataTable
-        rowData={rowData}
-        columns={columns}
-        hasTableActions={true}
-        sortOrder={sortOrder}
-        sortingHandling={sortData}
-        sortingArray={[
-          "slNo",
-          "type",
-          "question",
-          "option1",
-          "option2",
-          "option3",
-          "option4",
-        ]}
+      {questionRowData.length > 0 && (
+        <DataTable
+          rowData={questionRowData}
+          columns={columns}
+          hasTableActions={true}
+          sortOrder={sortOrder}
+          sortingHandling={sortData}
+          sortingArray={[
+            "slNo",
+            "type",
+            "question",
+            "option1",
+            "option2",
+            "option3",
+            "option4",
+          ]}
+          updatePageNumber={nextPage}
+          previousPage={onClickPreviousPage}
+          currentPage={page}
+          paginationEnabled={true}
+          tableHeader="Processed Results"
+          totalRowsCount={totalCount}
+          totalRowsCountPerPage={questionRowData.length}
+        />
+      )}
+      <SnackBar
+        isOpen={snackBarOpen.value}
+        handleClose={() => setSnackBarOpen({ ...snackBarOpen, value: false })}
+        message={snackBarOpen.message}
+        type={snackBarOpen.type}
       />
     </div>
   );

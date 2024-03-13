@@ -15,6 +15,13 @@ const DataTable = (props: any) => {
     sortOrder,
     sortingHandling,
     sortingArray,
+    updatePageNumber,
+    currentPage,
+    paginationEnabled,
+    previousPage,
+    tableHeader,
+    totalRowsCount,
+    totalRowsCountPerPage,
   } = props;
   const [showDetail, setShowDetails] = useState(false);
   const [indexing, setIndexing] = useState(-1);
@@ -22,6 +29,7 @@ const DataTable = (props: any) => {
   const [searchBlock, setSearchBlock] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [columnId, setColumnId] = useState("");
+  const [individualRowData, setIndividualRowData] = useState<any>();
 
   useEffect(() => {
     setIndexing(-1);
@@ -37,16 +45,17 @@ const DataTable = (props: any) => {
     }
   };
 
-  const previousPage = () => {
-    return;
+  const viewIndividualData = (index: any, row: any) => {
+    setShowInfo(true);
+    setIndexing(index);
+    setIndividualRowData(row);
   };
-  const nextPage = () => {
-    return;
-  };
+
   const showData = (
     value: string | number,
     column: ColumnProps,
-    index: number
+    index: number,
+    row: any
   ) => {
     if (column.id === "view") {
       return (
@@ -64,10 +73,7 @@ const DataTable = (props: any) => {
     } else if (column.id === "preview") {
       return (
         <div
-          onClick={() => {
-            setShowInfo(true);
-            setIndexing(index);
-          }}
+          onClick={() => viewIndividualData(index, row)}
           className="px-2 py-1 text-sm text-sky-800 cursor-pointer"
         >
           {showInfo && indexing === index ? (
@@ -78,13 +84,18 @@ const DataTable = (props: any) => {
         </div>
       );
     } else {
-      return value;
+      return value === "" ? <span className="text-gray-400">None</span> : value;
     }
   };
 
   const sorting = (column: ColumnProps, order: string) => {
     setColumnId(column.id);
     sortingHandling?.(column.id, order);
+  };
+
+  const calcNumberOfPages = () => {
+    const numberOfPages = totalRowsCount / 20;
+    return Math.ceil(numberOfPages);
   };
 
   const handleTableHeader = (columnObj: ColumnProps) => {
@@ -123,7 +134,7 @@ const DataTable = (props: any) => {
       } `}
     >
       <div className="w-full relative text-[#374043] opacity-90 p-2 flex items-center justify-between border border-[#C3C8CB] bg-white border-b-0">
-        <div> Processed Results</div>
+        <div className="font-semibold">{tableHeader}</div>
         {hasTableActions && (
           <div className="flex items-center space-x-4 text-[18px]">
             <i className="fa-solid fa-download cursor-pointer"></i>
@@ -185,15 +196,23 @@ const DataTable = (props: any) => {
             {rowData.map((row: any, i: number) => {
               return (
                 <>
-                  <tr key={rowData.id}>
+                  <tr
+                    style={{
+                      backgroundColor: `${
+                        row?.["sl.no"] === "query_info" && "#ADD8E6"
+                      }`,
+                    }}
+                  >
                     {columns?.map((column: any, _index: number) => {
                       return (
                         <td
-                          style={{ width: `${column.width}px` }}
+                          style={{
+                            width: `${column.width}px`,
+                          }}
                           key={column.id}
                           className={`px-4 py-2 ${column.align}`}
                         >
-                          {showData(row[column.id], column, i)}
+                          {showData(row[column.id], column, i, row)}
                         </td>
                       );
                     })}
@@ -207,47 +226,36 @@ const DataTable = (props: any) => {
                         <div className="flex flex-col items-center justify-center bg-[#F2F4F6]">
                           <div className=" bg-white p-2 text-md w-[80%] shadow-lg my-2">
                             <div className="text-sky-800 text-2xl text-center w-full font-bold  border-[sky] pb-1 ">
-                              Related Questions
+                              Similar Questions
                             </div>
-                            <div className="bg-white p-2 text-md border-b mx-4">
-                              <div className="text-sky-800 font-semibold">
-                                1. What is capital of india?
-                              </div>
-                              <ul className="list-disc text-[#75736d] mx-8">
-                                <li>Karnataka</li>
-                                <li>Tamilnadu</li>
-                                <li>Andra Pradesh</li>
-                                <li>Kerala</li>
-                              </ul>{" "}
-                            </div>
-                            <div className=" bg-white p-2 text-md border-b mx-4">
-                              <div className="text-sky-800 font-semibold">
-                                2. Check line in a chain surveying ?
-                              </div>
-                              <ul className="list-disc text-[#75736d] mx-8">
-                                <li>Checks the accuracy of the framework </li>
-                                <li>
-                                  Enables the surveyor to locate the interior
-                                  details which are far away from the main chain
-                                  lines
-                                </li>
-                                <li>
-                                  Fixes up the directions of all other lines{" "}
-                                </li>
-                                <li>All of the above </li>
-                              </ul>
-                            </div>
-                            <div className="bg-white p-2 text-md mx-4 ">
-                              <div className="text-sky-800 font-semibold">
-                                3. What is your name?
-                              </div>
-                              <ul className="list-disc text-[#75736d] mx-8">
-                                <li>Sunil charan </li>
-                                <li>Vinay</li>
-                                <li>Rahul</li>
-                                <li>Deepak</li>
-                              </ul>
-                            </div>
+                            <table className="w-full text-left bg-white rounded-md relative overflow-x-auto">
+                              <thead className="text-[16px] text-[#0B6481] bg-slate-200 tracking-tight opacity-70">
+                                <tr>
+                                  <th className="text-center">Excel Row No</th>
+                                  <th className="text-center">Question Stem</th>
+                                  <th className="text-center">Score</th>
+                                </tr>
+                              </thead>
+                              <tbody className="text-[15px] opacity-90 text-[#374043] w-full">
+                                {row.similar_data.map(
+                                  (similarData: any, index: number) => {
+                                    return (
+                                      <tr key={similarData.sl_no}>
+                                        <td className="text-center">
+                                          {similarData.sl_no}
+                                        </td>
+                                        <td className="px-2">
+                                          {similarData.question}
+                                        </td>
+                                        <td className="text-center">
+                                          {similarData.score}
+                                        </td>
+                                      </tr>
+                                    );
+                                  }
+                                )}
+                              </tbody>
+                            </table>
                           </div>
                         </div>
                       </td>
@@ -258,25 +266,29 @@ const DataTable = (props: any) => {
             })}
           </tbody>
         </table>
-        <div className="m-4 flex items-center sm:justify-center font-semibold bg-[#F2F4F6]">
-          <div className="w-full lg:w-1/2 flex items-center justify-between text-sm">
-            <div
-              onClick={previousPage}
-              className=" opacity-55 w-[60px] sm:w-[120px] border text-[#1081A6] border-[#1081A6] py-1 text-center rounded-sm cursor-pointer "
-            >
-              Previous
-            </div>
-            <div className="sm:text-sm text-[10px] text-[#374043] opacity-75">
-              Page 1 of 3 | Total Count: 145
-            </div>
-            <div
-              onClick={nextPage}
-              className="w-[60px] sm:w-[120px] border text-[#1081A6] border-[#1081A6] py-1 text-center rounded-sm cursor-pointer opacity-100"
-            >
-              Next
+        {paginationEnabled && (
+          <div className="m-4 flex items-center sm:justify-center font-semibold bg-[#F2F4F6]">
+            <div className="w-full lg:w-1/2 flex items-center justify-between text-sm">
+              <div
+                onClick={previousPage}
+                className={`${
+                  currentPage <= 1 && "opacity-55 pointer-events-none"
+                } w-[60px] sm:w-[120px] border text-[#1081A6] border-[#1081A6] py-1 text-center rounded-sm cursor-pointer`}
+              >
+                Previous
+              </div>
+              <div className="sm:text-sm text-[10px] text-[#374043] opacity-75">
+                {`Page ${currentPage} of ${calcNumberOfPages()} | Total Count: ${totalRowsCountPerPage} of ${totalRowsCount}`}
+              </div>
+              <div
+                onClick={updatePageNumber}
+                className="w-[60px] sm:w-[120px] border text-[#1081A6] border-[#1081A6] py-1 text-center rounded-sm cursor-pointer opacity-100"
+              >
+                Next
+              </div>
             </div>
           </div>
-        </div>
+        )}
         {showInfo && (
           <div
             className="flex items-center justify-center fixed top-0 left-0 w-full h-full"
@@ -289,13 +301,29 @@ const DataTable = (props: any) => {
                     Question Details
                   </div>
                   <div className="text-sky-800 font-semibold mb-2">
-                    1. What is capital of india?
+                    {individualRowData?.Question}
                   </div>
                   <ul className="list-disc text-[#75736d] mx-8">
-                    <li>Karnataka</li>
-                    <li>Tamilnadu</li>
-                    <li>Andra Pradesh</li>
-                    <li>Kerala</li>
+                    <li>
+                      {individualRowData?.["Option 1"] === ""
+                        ? "None"
+                        : individualRowData?.["Option 1"]}
+                    </li>
+                    <li>
+                      {individualRowData?.["Option 2"] === ""
+                        ? "None"
+                        : individualRowData?.["Option 2"]}
+                    </li>
+                    <li>
+                      {individualRowData?.["Option 3"] === ""
+                        ? "None"
+                        : individualRowData?.["Option 3"]}
+                    </li>
+                    <li>
+                      {individualRowData?.["Option 4"] === ""
+                        ? "None"
+                        : individualRowData?.["Option 4"]}
+                    </li>
                   </ul>{" "}
                 </div>
                 <i

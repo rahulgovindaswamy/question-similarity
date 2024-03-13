@@ -3,12 +3,9 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-export default function SelectLabels() {
+export default function SelectLabels(props: any) {
+  const { handleChange } = props;
   const [filterOption, setFilterOption] = React.useState("Stem");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setFilterOption(event.target.value);
-  };
 
   return (
     <FormControl sx={{ width: "100%" }} size="small">

@@ -16,18 +16,15 @@ const marks = [
   },
 ];
 
-export default function CustomMarks() {
-  const [val, setVal] = React.useState<number>(MIN);
-  const handleChange = (_: Event, newValue: number | number[]) => {
-    setVal(newValue as number);
-  };
+export default function CustomMarks(props: any) {
+  const { handleChange, value } = props;
 
   return (
     <Box sx={{ paddingLeft: "8px" }}>
       <Slider
         marks={marks}
         step={1}
-        value={val}
+        value={value}
         valueLabelDisplay="auto"
         min={MIN}
         max={MAX}
@@ -53,14 +50,14 @@ export default function CustomMarks() {
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography
           variant="body2"
-          onClick={() => setVal(MIN)}
+          // onClick={() => setVal(MIN)}
           sx={{ cursor: "pointer" }}
         >
           {MIN}
         </Typography>
         <Typography
           variant="body2"
-          onClick={() => setVal(MAX)}
+          // onClick={() => setVal(MAX)}
           sx={{ cursor: "pointer" }}
         >
           {MAX}

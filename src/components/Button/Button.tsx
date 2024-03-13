@@ -4,9 +4,11 @@ const Button = (props: any) => {
     <button
       type={type}
       disabled={disable}
-      className={`border 
-          bg-[#1081A6] text-white w-fit px-4 py-2 text-sm rounded-md cursor-pointer shadow-md hover:text-white
-      `}
+      className={`border ${
+        disable
+          ? "bg-gray-500 text-white px-4 py-2 text-sm rounded-sm"
+          : "bg-[#1081A6] text-white w-fit px-4 py-2 text-sm rounded-md cursor-pointer shadow-md hover:text-white"
+      }`}
       onClick={onClick}
       onKeyDown={(event: React.KeyboardEvent<HTMLButtonElement>) => {
         if (event.key === "Enter") {

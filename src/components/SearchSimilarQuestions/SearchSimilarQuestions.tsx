@@ -1,32 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import SearchInput from "../Input/Input";
 import DataTable from "../DataTable/DataTable";
+import axiosinstance from "../../services/axiosInstane";
+import Loader from "../Loader/Loader";
+import SnackBar from "../SnackBar/SnackBar";
+import { snackbarColor } from "../../config/constants";
 
-const rowData: any = [
-  {
-    question: "A very strong wind is called",
-    score: 7.2,
-    slNo: 12,
-  },
-  {
-    question: "A soft wind is called breeze",
-    score: 5.2,
-    slNo: 14,
-  },
-  {
-    question: "Integrated system that helps you build embedded",
-    score: 7.2,
-    slNo: 15,
-  },
-  {
-    question: "Play Music is no longer available",
-    score: 9.0,
-    slNo: 89,
-  },
-];
 const columns = [
-  { id: "slNo", label: "SL. No", width: 100, align: "text-center" },
+  { id: "sl.no", label: "SL. No", width: 100, align: "text-center" },
   {
     id: "question",
     label: "Question Stem",
@@ -38,15 +20,51 @@ const columns = [
 
 const SearchSimilarQuestions = () => {
   const [questionStem, setQuestionStem] = useState("");
+  const [userId, setUserId] = useState("278398ba-fc29-41fb-a13b-84623820b388");
+  const [rowData, setRowData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [snackBarOpen, setSnackBarOpen] = useState({
+    value: false,
+    message: "",
+    type: "",
+  });
+
+  const checkSimilarQuestion = () => {
+    setIsLoading(true);
+    axiosinstance
+      .get(`CheckSimilarQuestion?UserId=${userId}&SearchedText=${questionStem}`)
+      .then((response) => {
+        if (response.status === 200) {
+          setRowData(response.data.searched_data);
+          setSnackBarOpen({
+            ...snackBarOpen,
+            value: true,
+            message: "Successful",
+            type: snackbarColor.success,
+          });
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setSnackBarOpen({
+          ...snackBarOpen,
+          value: true,
+          message: "Something went wrong",
+          type: snackbarColor.error,
+        });
+        setIsLoading(false);
+      });
+  };
   return (
     <div className="w-full">
+      {isLoading ? <Loader /> : null}
       <div className="mt-5 text-[#374043]">
         <div className="text-xl font-semibold mb-1">Find Similar Questions</div>
         <div className="text-sm leading-relaxed opacity-80">
           Input the Question to find similar questions.
         </div>
       </div>
-      <div className="w-full bg-white rounded-sm mt-5">
+      <div className="w-full bg-white rounded-sm my-5">
         <div className="p-5">
           <div className="text-[#374043] font-semibold opacity-70">
             Enter the Question Stem
@@ -63,7 +81,10 @@ const SearchSimilarQuestions = () => {
                 showClear={true}
               />
             </div>
-            <Button>
+            <Button
+              onClick={checkSimilarQuestion}
+              disable={questionStem === ""}
+            >
               <div className="flex items-center space-x-2">
                 <div>
                   <i className="fa-solid fa-magnifying-glass"></i>
@@ -74,11 +95,24 @@ const SearchSimilarQuestions = () => {
           </div>
         </div>
       </div>
-      <div className="w-full bg-white rounded-sm mt-5 p-5 text-[#374043] font-semibold opacity-70 mb-5">
-        {/* Please enter a search query before checking similarity. */}
+      {/* <div className="w-full bg-white rounded-sm mt-5 p-5 text-[#374043] font-semibold opacity-70 mb-5">
         Similarity on Question Stem (Search):
-      </div>
-      <DataTable rowData={rowData} columns={columns} hasTableActions={false} />
+      </div> */}
+      {rowData.length > 0 && (
+        <DataTable
+          rowData={rowData}
+          columns={columns}
+          hasTableActions={false}
+          paginationEnabled={false}
+          tableHeader="Similarity on Question Stem (Search):"
+        />
+      )}
+      <SnackBar
+        isOpen={snackBarOpen.value}
+        handleClose={() => setSnackBarOpen({ ...snackBarOpen, value: false })}
+        message={snackBarOpen.message}
+        type={snackBarOpen.type}
+      />
     </div>
   );
 };

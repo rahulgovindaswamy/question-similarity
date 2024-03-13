@@ -10,7 +10,7 @@ const Tabs = (props: TabProps) => {
   const { activeItem, onTabChange } = props;
   const [menuItems, setMenuItems] = useState<Array<string>>([
     "Upload Questions",
-    "Similar Question",
+    "Similar Questions",
     "Search Similar Question",
   ]);
   const navRef = useRef<Array<HTMLElement>>([]);
@@ -61,13 +61,14 @@ const Tabs = (props: TabProps) => {
           <nav
             key={item}
             aria-label={`${item} tab`}
-            className={`mr-6 py-3 md:text-[16px] text-[12px] ${
+            className={`mr-6 py-3 sm:text-[16px] text-[12px] ${
               i !== activeItem && "opacity-60"
             } text-[#374043]  font-semibold cursor-pointer`}
             onClick={() => handleTabChange(i)}
+            tabIndex={0}
             ref={(el) => navRef.current.push(el as HTMLElement)}
             onKeyDown={(event: React.KeyboardEvent<HTMLElement>) => {
-              if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+              if (event.key === "Enter") {
                 handleTabChange(i);
               }
             }}
