@@ -100,8 +100,12 @@ const DataTable = (props: any) => {
 
   const handleTableHeader = (columnObj: ColumnProps) => {
     return (
-      <div className="flex items-center space-x-2">
-        <div className="">{columnObj.label}</div>
+      <div
+        className={`flex items-center ${
+          columnObj.align === "text-center" ? "justify-center" : "justify-start"
+        } space-x-2`}
+      >
+        <div>{columnObj.label}</div>
         {sortingArray?.includes(columnObj.id) && (
           <div className="cursor-pointer text-[12px]">
             {columnId === columnObj.id && sortOrder !== "ASC" ? (
@@ -137,11 +141,6 @@ const DataTable = (props: any) => {
         <div className="font-semibold">{tableHeader}</div>
         {hasTableActions && (
           <div className="flex items-center space-x-4 text-[18px]">
-            <i className="fa-solid fa-download cursor-pointer"></i>
-            <i
-              onClick={() => setSearchBlock(true)}
-              className="fa-solid fa-magnifying-glass cursor-pointer"
-            ></i>
             {maxTable ? (
               <i
                 className="fa-solid fa-compress cursor-pointer"

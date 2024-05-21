@@ -10,7 +10,7 @@ import { snackbarColor } from "../../config/constants";
 const columns = [
   {
     id: "sl_no",
-    label: "",
+    label: "SL. No",
     width: 100,
     align: "text-left",
   },
@@ -19,6 +19,12 @@ const columns = [
     label: "Question Stem",
     width: 600,
     align: "text-left",
+  },
+  {
+    id: "similar_cnt",
+    label: "Count",
+    width: 100,
+    align: "text-center",
   },
   { id: "view", label: "View", width: 100, align: "text-center" },
 ];

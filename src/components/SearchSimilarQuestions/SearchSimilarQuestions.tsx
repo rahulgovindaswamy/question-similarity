@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../Button/Button";
 import SearchInput from "../Input/Input";
 import DataTable from "../DataTable/DataTable";
@@ -8,14 +8,14 @@ import SnackBar from "../SnackBar/SnackBar";
 import { snackbarColor } from "../../config/constants";
 
 const columns = [
-  { id: "sl.no", label: "SL. No", width: 100, align: "text-center" },
+  { id: "sl.no", label: "SL. No", width: 50, align: "text-center" },
   {
     id: "question",
     label: "Question Stem",
     width: 600,
     align: "text-left",
   },
-  { id: "score", label: "Score", width: 100, align: "text-center" },
+  { id: "score", label: "Score", width: 50, align: "text-center" },
 ];
 
 const SearchSimilarQuestions = () => {

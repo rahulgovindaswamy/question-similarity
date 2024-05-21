@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../Button/Button";
 import DataTable from "../DataTable/DataTable";
 import Loader from "../Loader/Loader";
@@ -241,15 +241,7 @@ const UploadQuestions = (props: any) => {
           hasTableActions={true}
           sortOrder={sortOrder}
           sortingHandling={sortData}
-          sortingArray={[
-            "slNo",
-            "type",
-            "question",
-            "option1",
-            "option2",
-            "option3",
-            "option4",
-          ]}
+          sortingArray={["SL.No", "Type", "Question"]}
           updatePageNumber={nextPage}
           previousPage={onClickPreviousPage}
           currentPage={page}
